@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="vue-2.5.9.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h3>{{ msg}}</h3>
+        <hr>
+        <!-- //v-bind 只能实行单个的绑定 -->
+        <!-- <input type="text" :value="msg">  -->
+        
+        <!-- 在vue中 只有v-model 指令的双向绑定，其他都是单项的，但是！！只能使用在表单元素中 -->
+        <input type="text" v-model="msg">
+    </div>
+
+
+    <script>
+        var vm=new Vue({
+            el:'#app',
+            data:{
+                msg:'哈哈哈'
+            },
+            methods:{
+
+            }
+        })
+    </script>
+</body>
+</html>

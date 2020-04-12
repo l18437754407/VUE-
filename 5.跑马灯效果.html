@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="vue-2.5.9.js"></script>
+</head>
+<body>
+        <div id="app">
+            <input type="button" value="浪起来" @click="lang">
+            <input type="button" value="停止" @click="stop">
+            <hr>    
+            <h3>{{msg}}</h3>
+        </div>
+
+        <script>
+            var vm=new Vue({
+                el:'#app',<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./lib/vue-2.5.9.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <input type="button" value="浪起来" @click="lang">
+    <input type="button" value="停止" @click="stop">
+
+    <h3>{{ msg }}</h3>
+  </div>
+
+  <script>
+    // 创建 Vue 实例，得到 ViewModel
+    var vm = new Vue({
+      el: '#app',
+      data: { // 在一个 VM 实例的 data 中挂载的数据,vm 的 methods 中都可以访问;
+        msg: '我拿Buff,谢谢~',
+        intervalId: null // 定时器的Id
+      },
+      methods: {
+        lang() { // 开始跑马灯效果
+          // 思路:
+          // 1. 先截取第一个字符,然后把这个字符,放到 结尾
+          // this.msg.substring(起始的索引, 结束的索引[不包含结束的索引])
+          // clearInterval(this.intervalId)
+
+          // 如果 定时器的Id,不等于Null,就表示已经有定时器在执行了,此时,直接退出,这样就不会再开启第二个定时器了
+          if (this.intervalId !== null) return
+
+          this.intervalId = setInterval(() => {
+            const header = this.msg.substring(0, 1)
+            const body = this.msg.substring(1)
+            this.msg = body + header
+          }, 300)
+        },
+        stop() { // 清除定时器
+          clearInterval(this.intervalId)
+          // 每当清楚定时器之后,为了保证下次能够正常开启定时器,所以,需要把 intervalId 重置为null
+          this.intervalId = null
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>
+                data:{
+                    msg:'我拿buff，谢谢!!!!'
+                    intervalid:null 
+
+                },
+                methods:{
+                    lang(){//开始跑马灯效果
+                            //思路： 截取第一个字符 放到结尾
+                    this.intervalid= setInterval(()=>{
+                            const header=this.msg.substring(0,1)
+                            const body =this.msg.substring(1)
+                            this.msg=body+header
+                        },300)
+                    },
+                    stop() { // 清除定时器
+          clearInterval(this.intervalid)
+          // 每当清楚定时器之后,为了保证下次能够正常开启定时器,所以,需要把 intervalId 重置为null
+          this.intervalId = null
+                }
+            });
+        </script>
+</body>
+</html>

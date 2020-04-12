@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="vue-2.5.9.js"></script>
+</head>
+<body>
+    <div id="app">
+        <input type="button" value ="点击一下，俊哥胖三斤" v-on:click="add">
+        <hr>
+        <h3>俊哥当前重量值：{{ weight }}斤</h3>
+    </div>
+                                                <!-- v-on:  简写为@ -->
+    <script>
+    var vm=new Vue({
+        el:'#app',
+        data:{
+            weight:10
+        },
+//         methods:{ //属性为：对象  定义好多事件处理函数
+// add:function(){
+//     console.log('ok')
+// }
+//         }
+        methods:{
+            add(){
+            this.weight += 3
+        }
+        }
+    })
+
+   
+    </script>
+</body>
+</html>

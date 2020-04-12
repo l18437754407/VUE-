@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="vue-2.5.9.js"></script>
+    <style>
+        #inner{
+            background-color: pink;
+            height: 150px;
+            width: 200px;;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div id="inner" @click="innerClick">
+            <input type="button" value="按钮" @click.stop="btnClick">  
+                                <!-- .stop 阻止冒泡（同时执行） -->
+        </div>
+    </div>
+
+    <script>
+        var vm=new Vue({
+            el:'#app',
+            data:{},
+            methods:{
+                innerClick(){
+                    console.log('内部的div被点击')
+                },
+                btnClick(){
+                    console.log('按钮被点击了')
+                }
+
+            }
+        });
+    </script>
+</body>
+</html>

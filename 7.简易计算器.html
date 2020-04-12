@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="vue-2.5.9.js"></script>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model="n1">
+        <select V-model="opt">
+            <option value="+">+</option>
+            <option value="-">-</option>
+            <option value="*">*</option>
+            <option value="/">/</option>
+        </select>
+        <input type="text" v-model="n2">
+        <input type="button" value="="@click="calc">
+        <input type="text" v-model="result">
+    </div>
+
+    <script>
+     var vm=new Vue({
+         el:'#app',
+         data:{
+             n1:0,
+             opt:'*',
+             n2:0,
+             result:0
+         },
+         methods:{
+             calc(){
+                 //计算方法
+                 //分别获取操作符和 两个要计算的数字，进行运算，最后赋值给result
+                //  switch(this.opt){
+                //     case'+':
+                //     this.result=parseFloat(this.n1)+parseFloat(this.n2)
+                //     break;
+                //     case'-':
+                //     this.result=parseFloat(this.n1)-parseFloat(this.n2)
+                //     break;
+                //     case'*':
+                //     this.result=parseFloat(this.n1)*parseFloat(this.n2)
+                //     break;
+                //     case'/':
+                //     this.result=parseFloat(this.n1)/parseFloat(this.n2)
+                //     break;
+                //  }
+                eval(`this.result = parseFloat(this.n1) ${this.opt}parseFloat(this.n2)`)
+                // eval(`this.result = parseFloat(this.n1) ${this.opt} parseFloat(this.n2)`)
+
+
+             }
+             
+         }
+
+     })
+                    // 上午总结-----------------------------------------------------
+//      <!-- 如果要在项目中使用 VUE 开发了: 分为3步:  -->
+// <!-- 1. 引包 -->
+// <!-- 2. 定义 将来要被 Vue 控制的 元素 -->
+// <!-- 3. new 一个 Vue 的实例 -->
+
+// <!-- el 只要要控制的区域   data 指定要渲染的数据   methods 要触发的事件处理函数 -->
+
+// <!-- {{ }}    v-cloak -->
+// <!-- v-text -->
+// <!-- v-html -->
+
+// <!-- v-bind:    缩写 : -->
+// <!-- v-on:      缩写 @ -->
+
+// <!-- v-model  实现数据双向绑定的指令 -->
+
+// <!-- data 中的数据,如果想要在 methods 中访问,  直接使用 this.属性名    即可 -->
+// <!-- data 中,可以存放一些共享的数据, 这样,当前实例中的任何地方,都可以直接使用  this.属性名来访问这些共享的数据了 -->
+    
+    </script>
+</body>
+</html>
