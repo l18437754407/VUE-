@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="vue-2.5.9.js"></script>
+</head>
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="(item,key) in person">{{item}}---{{key}}</li>
+        </ul>
+        <hr>
+        <!-- 循环数值   从1循环到9 -->
+        <p v-for="item in 9">{{item}}</p>
+    </div>
+
+    <script>
+    var vm=new Vue({
+        el:'#app',
+        data:{
+            person:{
+                id:1,
+                name:'鲁班七号',
+                age:3,
+                gander:'男'
+            }
+        },
+        methods:{}
+    });
+    </script>
+</body>
+</html>
