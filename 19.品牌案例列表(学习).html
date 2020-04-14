@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="vue-2.5.9.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div>
+            <label for="">id</label>
+            <input type="text" name="" id="" v-model="id">
+            <label for="">name</label>
+            <input type="text" name="" id="" v-model="name">
+            <input type="button" value="添加" @click="add">
+        </div>
+        <table>
+           
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Ctime</th>
+                    <th>操作</th>
+                </tr>
+           <tbody>
+               <tr v-for="item in list":key="item.id">
+                   <td>{{item.id}}</td>
+                   <td>{{item.name}}</td>
+                   <td>{{item.ctime}}</td>
+                   <td>
+            <a href="http://www.baidu.com" @click.prevent="del(item.id)">删除</a>
+        
+                   </td>
+               </tr>
+           </tbody>
+        </table>
+    </div>
+
+    <script>
+    var vm=new Vue({
+        el:'#app',
+        data:{
+            id:'',
+            name:'',
+            list:[
+                {id:1,name:'奔驰',ctime:new Date()},
+                {id:2,name:'宝马',ctime:new Date()}
+            ]
+        },
+        methods:{
+            add(){
+                this.list.push({id:this.id,name:this.name,ctime:new Date()})
+                this.id=this.name=''
+            },
+            del(id) { // 点击删除商品
+          // console.log(id)
+          // 分析业务逻辑: 
+          //  1. 根据拿到的商品Id, 查找到 对应的 商品索引
+          //  2.根据拿到的 索引值, 去数组中,调用 splice 方法删除对应的那个元素
+          /* for (let i = 0; i < this.list.length; i++) {
+            if (this.list[i].id == id) {
+              this.list.splice(i, 1)
+              break
+            }
+          } */
+
+
+          const index = this.list.findIndex(function (item, i, arr) {
+            return item.id == id
+          })
+
+          this.list.splice(index, 1)
+
+          // console.log(index)
+          // this.list.forEach(function (item, i, arr) { })
+        }
+        }
+    });
+    </script>
+</body>
+</html>

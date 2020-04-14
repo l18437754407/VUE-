@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="vue-2.5.9.js"></script>
+</head>
+<body>
+    <div id="app">
+        {{flag}}
+        <br>
+        <br>
+        <input type="button" value="toggle" @click="toggle">
+        <h3 v-if="flag">哈哈哈哈哈哈哈</h3>
+        <h4 v-show="flag">12344566</h4>
+        <!-- v-if和v-show 只有一个作用，作用类似，显示与隐藏标签 -->
+        <!-- 区别：v-if 是实时的创建和移除元素
+            v-show是添加display：none 来实现隐藏和显示的 -->
+
+
+            <!-- 使用范围--------------------------------------------------------- -->
+            <!-- 1、如果经常切换显示和隐藏的状态，使用v-show更合适一点
+            2、如果元素创建出来很少切换，建议使用v-if -->
+
+    </div>
+
+    <script>
+    var vm=new Vue({
+        el:'#app',
+        data:{
+            flag:true
+        },
+        methods:{
+            toggle(){
+            this.flag=!this.flag
+
+            }
+        }
+    });
+    </script>
+</body>
+</html>

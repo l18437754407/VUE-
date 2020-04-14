@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="vue-2.5.9.js"></script>
+</head>
+<body>
+    <div id="app">
+            <div>
+                <label for="">id：
+                    <input type="text" v-model="id">
+                </label>
+            
+                    <label for="">name：
+                        <input type="text" v-model="name">
+                    </label>
+                    <input type="button" value="添加" @click="add">
+                </div>
+
+
+        <ul>
+            <!-- 只要使用v-for 尽量添加key属性 -->
+            <!-- key属性只接受number和string类型的数据，key值必须具有唯一性 -->
+            <li v-for="(item,i) in list1" :key="item.id"> 
+                <input type="checkbox" name="" id="">
+                id：{{item.id}}-----------姓名：{{item.name}}
+            </li>
+        </ul>
+    </div>
+
+    <script>
+    var vm=new Vue({
+        el:'#app',
+        data:{
+            id:'',
+            name:'',
+            list1:[
+                {id:1,name:'嬴政'},
+                {id:2,name:'武则天'},
+                {id:3,name:'王昭君'},
+                {id:4,name:'貂蝉'},
+                {id:5,name:'甄姬'}
+            ]
+        },
+        methods:{
+            add(){//点击添加新名称
+                var info={id:this.id,name:this.name}
+                // this.list1.push(info) //底部添加
+                this.list1.unshift(info) //顶部添加
+
+            }
+        }
+    });
+    </script>
+</body>
+</html>
