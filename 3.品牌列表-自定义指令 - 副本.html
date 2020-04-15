@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="./lib/bootstrap-3.3.7.css">
+  <!-- 2.4.x -->
+  <script src="vue-2.5.9.js"></script>
+</head>
+
+<body>
+  <div id="app">
+
+    <div>
+
+      <label>Id:</label>
+      <input type="text" v-model="id">
+      <label>Name:</label>
+                                     <!-- 绑定点击按键 -->
+      <input type="text" v-model="name" @keyup.enter="add">
+      <input type="button" value="添加" class="btn btn-primary" @click="add"> &nbsp;&nbsp;&nbsp;&nbsp;
+      <span v-color>按照品牌名称检索:</span>
+      <input type="text" v-model="keywords" @change="searchByName" v-focus>
+
+    </div>
+
+    <table class="table table-bordered table-hover table-striped">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th v-italic>CTime</th>
+          <th v-color="'blue'" v-bold="700">操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="item in searchByName()" :key="item.id">
+          <td>{{ item.id }}</td>
+          <td>{{ item.name }}</td>
+          <td>{{ item.ctime }}</td>
+          <td>
+            <a href="http://www.baidu.com" @click.prevent="del(item.id)">删除</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+
+  </div>
+
+  <script>
+
+    // 全局自定义 获得焦点的 v-focus 指令
+    // Vue.filter('过滤器的名称', 处理函数)
+    // 注意： Vue 自定义指令的名称中，不需要写 v- 前缀，但是，在调用自定义指令的时候，必须在 前面加上 v- 前缀
+    Vue.directive('focus', {
+      // 参数列表中的 第一个参数，永远是  el 表示被绑定指令的那个元素
+      //  如果要操作元素的样式， 写到 bind 就行了
+      bind: function (el) { // 当指令绑定到的元素，被Vue实例解析的时候，就会 立即执行 bind 函数
+        // console.log(el)
+        // console.log('bind被执行了')
+        // 这是 JS DOM API 中原生的方法
+        // el.focus() // 如果想要让文本框获得焦点，那么，文本框必须先插入到文档中才能生效
+        // el.style.color = 'red'
+      },
+      // 今后在自定义指令的时候，如果 需要操作 元素的JS行为了，最好写到 inserted 中
+      inserted: function (el) { // 调用时机： 当 指令绑定到的元素，被插入到文档的父节点时候，调用 inserted 函数
+        // console.log('inserted 被执行了')
+        el.focus()
+      },
+    })
+
+
+    Vue.directive('color', {
+      bind(el, binding) {
+        // console.log(binding.value)
+        el.style.color = binding.value || 'red'
+      },
+      inserted(el) { }
+    })
+
+
+    // 创建 Vue 实例，得到 ViewModel
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        id: '',
+        name: '',
+        keywords: '', // 根据名称检索时候的关键字
+        list: [
+          { id: 1, name: '奔驰', ctime: new Date() },
+          { id: 2, name: '宝马', ctime: new Date() },
+          { id: 3, name: '千里马', ctime: new Date() },
+          { id: 4, name: '奔奔', ctime: new Date(), }
+        ]
+      },
+      methods: {
+        add() { // 添加
+          this.list.push({ id: this.id, name: this.name, ctime: new Date() })
+          this.id = this.name = ''
+        },
+        del(id) { // 点击删除商品
+          const index = this.list.findIndex(function (item, i, arr) {
+            return item.id == id
+          })
+          this.list.splice(index, 1)
+        },
+        searchByName() { // 根据搜索的关键字,检索品牌数据
+          // 数组的 filter 方法,,作用是循环指定的数组,并把 满足回调函数中指定条件的项,返回,从而得到一个新数组
+          // 今后,为了防止此类事情的发生,上来就写 箭头函数
+          return this.list.filter(item => item.name.includes(this.keywords))
+        }
+      },
+      filters: { // 自定义过滤器区域
+
+      },
+      directives: { // 自定义指令区域
+        bold: { // 让指定元素字体加粗的指令
+          bind(el, binding) {
+            el.style.fontWeight = binding.value
+          },
+          inserted(el) { }
+        },
+        italic: function (el, binding) { // 让文字倾斜的指令
+          // 用到了指令的函数简写形式，如果指令给定的是 function，则 等同于 把 这个 function 中的代码，分别定义到了 bind 和 update 中去；
+          el.style.fontStyle = "italic"
+        }
+      }
+    });
+
+    // Vue 的实例， 也分为三个阶段： 分别是  创建阶段、运行阶段、销毁阶段
+    //  在实例运行的三个阶段中，总是伴随着各种各样的 事件，那么，这些事件，统称为 实例的 生命周期函数（钩子函数、生命周期事件）
+  </script>
+</body>
+
+</html>

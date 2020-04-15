@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="vue-2.5.9.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- 把纯洁替换为邪恶，要求：不能修改msg -->
+        <!-- 过滤器不会修改原数据，只是在显示数据的时候做了一层包装 -->
+        <h1>{{msg|strFormat('开心')|addStr}}</h1>
+    </div>
+    <script>
+        // 创建一个全局过滤器
+        Vue.filter('strFormat',function(data,str="邪恶"){
+            // return data+'-----------'
+
+            // 只能替换第一个  纯洁
+            // return data.replace('纯洁','邪恶')  
+
+            // 全部替换
+            return data.replace(/纯洁/g,str)  
+
+        })
+
+
+
+    var vm=new Vue({
+        el:'#app',
+        data:{
+            msg:'曾经，我也是一个纯洁的人，纯洁的我傻傻的问：”这世界上最纯洁的男人是谁？“'
+        },
+        methods:{},
+
+        // 私有过滤器     
+        // 如果全局过滤器和私有过滤器重名，则会采用就近远程
+        filters:{
+            addStr(data){
+                return data+'~~~~~~~'
+            }
+        }
+    });
+    </script>
+</body>
+</html>
