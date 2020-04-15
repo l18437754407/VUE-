@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="vue-2.5.9.js"></script>
+</head>
+<body>
+    <div id="app">
+
+    </div>
+
+    <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        msg: '123'
+      },
+      methods: {
+        show() {
+          console.log('show 方法被调用了')
+        }
+      },
+      beforeCreate() { // 这是我们遇到的第一个生命周期函数【创建阶段】 没有初始化好，不能被调用
+        // console.log(this.msg)
+        // this.show()
+      },
+      created() { // 这是我们遇到的第二个生命周期函数  【创建阶段】          重要--------------------经常用
+        // console.log(this.msg)               
+        this.show()
+      }
+            
+    });
+    </script>
+</body>
+</html>
