@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="vue-2.5.9.js"></script>
+</head>
+<body>
+    <div id="app">
+        <a href="#/a">a</a>
+        <a href="#/b">b</a>
+        <a href="#/c">c</a>
+
+        <component :is="comname"></component>
+    </div>
+
+    <script>
+        
+        Vue.component('coma',{
+            template:'<h1>a组件</h1>'
+        })
+        Vue.component('comb',{
+            template:'<h1>b组件</h1>'
+        })
+        Vue.component('comc',{
+            template:'<h1>c组件</h1>'
+        })
+
+    var vm=new Vue({
+        el:'#app',
+        data:{
+            comname:'coma'
+        },
+        methods:{},
+
+
+        mounted(){
+            console.log(window)
+            window.onhashchange=()=>{
+            const hash=location.hash
+            // console.log(hash)
+            switch(hash){
+                case'#/a':
+                this.comname='coma'
+                break;
+
+                case'#/b':
+                this.comname='comb'
+                break;
+
+                case'#/c':
+                this.comname='comc'
+                break;
+
+                
+            }
+                }
+        }
+    });
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="vue-2.5.9.js"></script>
+    <style>
+        #ball{
+            width: 150px;
+            height: 150px;
+            background-color: black;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <input type="button" value="加入购物车" @click="flag=!flag">
+
+<!-- 实现半场动画 -->
+        <transition   
+            @before-enter="beforeEnter"
+            @enter="enter"
+            @after-enter="afterEnter"
+            >
+        <div id="ball" v-show="flag"></div>            
+        </transition>
+    </div>
+
+    <script>
+    var vm=new Vue({
+        el:'#app',
+        data:{
+            flag:false
+        },
+        methods:{
+            beforeEnter(el){ //小球开始之前的状态
+                el.style.transform='translate(0,0)'
+            },
+            enter(el,done){ //小球动画结束之后的动态
+            el.offsetWidth  //为小球添加动画效果，必须添加
+                el.style.transform='translate(1000px,500px)'
+                el.style.transition='all 3s ease'
+
+                //在此调用done 相当于调用 afterEnter
+                done()
+            },
+            afterEnter(el){ //小球动画结束之后的回调函数，用来做一些清理工作
+                this.flag=!this.flag //当小球结束后，隐藏小球
+            }
+        }
+    });
+    </script>
+</body>
+</html>

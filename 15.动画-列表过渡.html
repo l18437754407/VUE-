@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="vue-2.5.9.js"></script>
+    <style>
+    ul{
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    li{
+        line-height: none;
+        border: 1px dashed black;
+        margin: 5px;
+        font-size: 30px;
+        padding-left: 20px;
+        width: 500px;
+        cursor: pointer;
+    }
+    li:hover{
+        background-color: darkcyan;
+        /* 添加背景四周阴影效果 */
+        box-shadow: 0 0 7px blue;   
+        /* transition: all 1s ease;  */
+    }
+
+    /* 添加动画效果 */
+    .v-enter,
+    .v-leave-to{
+        opacity: 0;
+        transform: translateY(500px);
+    }
+    
+    .v-enter-active,    
+    .v-leave-active{
+        transition: all 1s ease;
+    }
+   /* 删除元素后，下面的元素浮动到上面空缺 */
+    .v-move{
+        transition: all 1s ease;
+    }
+    .v-leave-active{
+        position: absolute;
+    }
+
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div>
+            id:<input type="text" v-model="id">
+            name:<input type="text" v-model="name">
+            <input type="button" value="添加" @click="add">
+
+        </div>
+            <transition-group tag="ul">
+            <li v-for="(item,i) in list" :key="item.id" @click="remove(i)">{{item.id}}------------------{{item.name}}</li>
+
+            </transition>
+        
+    </div>
+
+    <script>
+    var vm=new Vue({
+        el:'#app',
+        data:{
+            list:[
+            {id:1,name:'宋江'},
+            {id:2,name:'李逵'},
+            {id:3,name:'俊义'},
+            {id:4,name:'李冲'},
+            {id:5,name:'高俅'},
+            {id:6,name:'武松'},
+            {id:7,name:'吴用'}
+           
+            ]
+        },
+        methods:{
+            remove(i){
+                this.list.splice(i,1)
+            },
+            add(){
+                const p={id:this.id,name:this.name}
+                this.list.push(p)
+                this.id=this.name=''
+            }
+        }
+    });
+    </script>
+</body>
+</html>
